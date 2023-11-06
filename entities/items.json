@@ -1,0 +1,42 @@
+[
+    {
+        "name": "1N4148",
+        "description": "SI-D, 100V, 200mA",
+        "category": "Diode",
+        "manufacturer": "/",
+        "available": "322",
+        "price": "$0.02"
+    },
+    {
+        "name": "MBR10100",
+        "description": "Schottky, 100V, 10A, TO-220AC",
+        "category": "Diode",
+        "manufacturer": "/",
+        "available": "1323",
+        "price": "$0.83"
+    },
+    {
+        "name": "PREKI MS243",
+        "description": "Miyama, Japan, ON-OFF, SPST, 125V AC, 3A, Fi=5.5mm",
+        "category": "Switch",
+        "manufacturer": "MIYAMA ELECTRIC Co",
+        "available": "322",
+        "price": "$1.83"
+    },
+    {
+        "name": "PREKI KNX-02",
+        "description": "ON-ON, DPDT, 250V AC, 2A, Fi=5.5mm",
+        "category": "Switch",
+        "manufacturer": "MIYAMA ELECTRIC Co",
+        "available": "12",
+        "price": "$1.23"
+    },
+    {
+        "name": "VEN ME45101V1-A99",
+        "description": "12V 45x10 V 20m?/h 32,5dBA",
+        "category": "Cooling",
+        "manufacturer": "/Sunon/",
+        "available": "/1212/",
+        "/price/":"/$7.43/"
+    }
+]

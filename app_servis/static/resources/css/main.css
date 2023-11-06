@@ -1,0 +1,18 @@
+body {
+    background-color: #fefeec;
+
+}
+
+main#content {
+    background-color: white;
+    border-bottom: 1px ridge lightgray;
+    
+}
+
+.form-error {
+    border-color: red;
+}
+
+textarea {
+    min-height: 10em;
+}
