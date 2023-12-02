@@ -5,3 +5,4 @@ const constants = {
     itemsFile: './entities/items.json',
 };
 module.exports = Object.freeze(constants);
+//# sourceMappingURL=consants.js.map
