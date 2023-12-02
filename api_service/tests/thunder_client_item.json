@@ -1,0 +1,79 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Test Item Collection",
+    "dateExported": "2023-12-02T23:39:15.124Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "a06091df-921e-4aa4-aaed-6d770a4f75b2",
+            "colId": "59b5a1de-caa9-4a06-a9ce-129ee240899c",
+            "containerId": "",
+            "name": "getItems",
+            "url": "localhost:9000/item",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-12-02T23:29:04.458Z",
+            "modified": "2023-12-02T23:29:19.330Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3cdb7052-d9f2-4bd7-9c0d-9af9245fa2b0",
+            "colId": "59b5a1de-caa9-4a06-a9ce-129ee240899c",
+            "containerId": "",
+            "name": "getItem",
+            "url": "localhost:9000/item/1",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-12-02T23:29:45.476Z",
+            "modified": "2023-12-02T23:31:10.174Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "633cd1e7-3799-4e87-997e-c904e45632d8",
+            "colId": "59b5a1de-caa9-4a06-a9ce-129ee240899c",
+            "containerId": "",
+            "name": "postItem",
+            "url": "localhost:9000/item",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-12-02T23:31:35.602Z",
+            "modified": "2023-12-02T23:33:31.569Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "573bba53-1a58-40ba-b8b0-6396a012597f",
+            "colId": "59b5a1de-caa9-4a06-a9ce-129ee240899c",
+            "containerId": "",
+            "name": "putItem",
+            "url": "localhost:9000/item/1",
+            "method": "PUT",
+            "sortNum": 80000,
+            "created": "2023-12-02T23:34:05.520Z",
+            "modified": "2023-12-02T23:34:13.702Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "231a233f-8b6d-494a-a8bf-654fc99432d6",
+            "colId": "59b5a1de-caa9-4a06-a9ce-129ee240899c",
+            "containerId": "",
+            "name": "deleteItem",
+            "url": "localhost:9000/item/1",
+            "method": "DELETE",
+            "sortNum": 90000,
+            "created": "2023-12-02T23:34:34.073Z",
+            "modified": "2023-12-02T23:35:33.675Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
