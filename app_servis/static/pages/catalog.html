@@ -194,63 +194,63 @@
         };
 
         function fetchCatalog() {
-    fetch('http://localhost:9000/item')
-        .then(response => response.json())
-        .then(promise => {
-            const tbody = document.querySelector('#data-table tbody');
-            console.log(promise);
-            tbody.innerHTML = '';
+            fetch('http://localhost:9000/item')
+                .then(response => response.json())
+                .then(promise => {
+                    const tbody = document.querySelector('#data-table tbody');
+                    console.log(promise);
+                    tbody.innerHTML = '';
 
-            promise.forEach((item, index) => {
-                const tr = document.createElement('tr');
+                    promise.forEach((item, index) => {
+                        const tr = document.createElement('tr');
 
-                const nameTd = document.createElement('td');
-                nameTd.textContent = item.name;
-                tr.appendChild(nameTd);
+                        const nameTd = document.createElement('td');
+                        nameTd.textContent = item.name;
+                        tr.appendChild(nameTd);
 
-                const descriptionTd = document.createElement('td');
-                descriptionTd.textContent = item.description;
-                tr.appendChild(descriptionTd);
+                        const descriptionTd = document.createElement('td');
+                        descriptionTd.textContent = item.description;
+                        tr.appendChild(descriptionTd);
 
-                const categoryTd = document.createElement('td');
-                
-                // Assuming item.categories is an array of category objects
-                categoryTd.textContent = item.categories.map(category => category.name).join(', ');
-                tr.appendChild(categoryTd);
+                        const categoryTd = document.createElement('td');
 
-                const manufacturerTd = document.createElement('td');
-                manufacturerTd.textContent = item.manufacturer.name;
-                tr.appendChild(manufacturerTd);
+                        // Assuming item.categories is an array of category objects
+                        categoryTd.textContent = item.categories.map(category => category.name).join(', ');
+                        tr.appendChild(categoryTd);
 
-                const availableTd = document.createElement('td');
-                availableTd.textContent = item.available;
-                tr.appendChild(availableTd);
+                        const manufacturerTd = document.createElement('td');
+                        manufacturerTd.textContent = item.manufacturer.name;
+                        tr.appendChild(manufacturerTd);
 
-                const priceTd = document.createElement('td');
-                priceTd.textContent = item.price;
-                tr.appendChild(priceTd);
+                        const availableTd = document.createElement('td');
+                        availableTd.textContent = item.available;
+                        tr.appendChild(availableTd);
 
-                const editTd = document.createElement('td');
-                const editLink = document.createElement('a');
-                editLink.href = `item.html?id=${index + 1}`;
-                editLink.className = 'btn btn-info btn-circle';
+                        const priceTd = document.createElement('td');
+                        priceTd.textContent = item.price;
+                        tr.appendChild(priceTd);
 
-                const editIcon = document.createElement('i');
-                editIcon.className = 'fas fa-edit';
+                        const editTd = document.createElement('td');
+                        const editLink = document.createElement('a');
+                        editLink.href = `item.html?id=${item.id}`;
+                        editLink.className = 'btn btn-info btn-circle';
 
-                editLink.appendChild(editIcon);
+                        const editIcon = document.createElement('i');
+                        editIcon.className = 'fas fa-edit';
 
-                editTd.appendChild(editLink);
+                        editLink.appendChild(editIcon);
 
-                tr.appendChild(editTd);
+                        editTd.appendChild(editLink);
 
-                tbody.appendChild(tr);
-            });
-        })
-        .catch(error => {
-            console.error('Failed fetching items with: ', error);
-        });
-}
+                        tr.appendChild(editTd);
+
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(error => {
+                    console.error('Failed fetching items with: ', error);
+                });
+        }
 
         window.addEventListener("load", fetchCatalog());
     </script>

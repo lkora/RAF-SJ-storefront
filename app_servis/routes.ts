@@ -12,8 +12,8 @@ const itemsFile = './entities/items.json'
 
 // --- ROUTES ---
 // New Item
-router.use('/new-item', bodyParser.urlencoded({ extended: false }))
-router.post('/new-item', (req, res) => {
+router.use('/item', bodyParser.urlencoded({ extended: false }))
+router.post('/item', (req, res) => {
     const formData = req.body
     const { error, value } = newItem.validate(formData)
 

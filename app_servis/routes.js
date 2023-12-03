@@ -14,8 +14,8 @@ exports.router = router;
 const itemsFile = './entities/items.json';
 // --- ROUTES ---
 // New Item
-router.use('/new-item', body_parser_1.default.urlencoded({ extended: false }));
-router.post('/new-item', (req, res) => {
+router.use('/item', body_parser_1.default.urlencoded({ extended: false }));
+router.post('/item', (req, res) => {
     const formData = req.body;
     const { error, value } = schemas_1.newItem.validate(formData);
     if (error) {
