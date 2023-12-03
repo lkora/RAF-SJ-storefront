@@ -7,6 +7,14 @@ const restConstants: RestConstants = {
 const app = express()
 const { sequelize, Item, Category, ItemCategory, ItemOrder, Manufacturer, Order, OrderStatus } = require("./models")
 
+// Setup CORS
+const cors = require("cors")
+const corsOptions = {
+    origin: ['http://localhost:8000', 'http://127.0.0.1:8000']
+  };
+app.use(cors(corsOptions))
+  
+
 // -- Load REST routes --
 app.use('/', router)
 
