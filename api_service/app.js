@@ -19,6 +19,12 @@ const restConstants = {
 };
 const app = (0, express_1.default)();
 const { sequelize, Item, Category, ItemCategory, ItemOrder, Manufacturer, Order, OrderStatus } = require("./models");
+// Setup CORS
+const cors = require("cors");
+const corsOptions = {
+    origin: [`http://localhost:${8000}`, `http://127.0.0.1:${8000}`]
+};
+app.use(cors(corsOptions));
 // -- Load REST routes --
 app.use('/', routes_1.router);
 app.listen(restConstants.httpPort, () => __awaiter(void 0, void 0, void 0, function* () {

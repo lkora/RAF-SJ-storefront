@@ -37,6 +37,14 @@
         "category": "Cooling",
         "manufacturer": "/Sunon/",
         "available": "/1212/",
-        "/price/":"/$7.43/"
+        "/price/": "/$7.43/"
+    },
+    {
+        "name": "asdasd",
+        "description": "dd",
+        "manufacturer": "dd",
+        "available": "2",
+        "category": "1",
+        "price": "12"
     }
 ]

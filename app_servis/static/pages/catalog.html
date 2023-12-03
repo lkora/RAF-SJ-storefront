@@ -144,75 +144,6 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1N4148</td>
-                                            <td>SI-D, 100V, 200mA</td>
-                                            <td>Diode</td>
-                                            <td>/</td>
-                                            <td>322</td>
-                                            <td>$0.02</td>
-                                            <td>
-                                                <a href="item.html?id=1" class="btn btn-info btn-circle" onclick="">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>MBR10100</td>
-                                            <td>Schottky, 100V, 10A, TO-220AC</td>
-                                            <td>Diode</td>
-                                            <td>/</td>
-                                            <td>1323</td>
-                                            <td>$0.83</td>
-                                            <td>
-                                                <a href="item.html?id=2" class="btn btn-info btn-circle" onclick="">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>PREKI MS243</td>
-                                            <td>Miyama, Japan, ON-OFF, SPST, 125V AC, 3A, Fi=5.5mm</td>
-                                            <td>Switch</td>
-                                            <td>MIYAMA ELECTRIC Co</td>
-                                            <td>322</td>
-                                            <td>$1.83</td>
-                                            <td>
-                                                <a href="item.html?id=3" class="btn btn-info btn-circle" onclick="">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>PREKI KNX-02</td>
-                                            <td>ON-ON, DPDT, 250V AC, 2A, Fi=5.5mm</td>
-                                            <td>Switch</td>
-                                            <td>MIYAMA ELECTRIC Co</td>
-                                            <td>12</td>
-                                            <td>$1.23</td>
-                                            <td>
-                                                <a href="item.html?id=4" class="btn btn-info btn-circle" onclick="">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>VEN ME45101V1-A99</td>
-                                            <td>12V 45x10 V 20m?/h 32,5dBA</td>
-                                            <td>Cooling</td>
-                                            <td>Sunon</td>
-                                            <td>1212</td>
-                                            <td>$7.43</td>
-                                            <td>
-                                                <a href="item.html?id=5" class="btn btn-info btn-circle" onclick="">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -263,62 +194,63 @@
         };
 
         function fetchCatalog() {
-            fetch('/items')
-                .then(response => response.json())
-                .then(promise => {
-                    const tbody = document.querySelector('#data-table tbody');
+    fetch('http://localhost:9000/item')
+        .then(response => response.json())
+        .then(promise => {
+            const tbody = document.querySelector('#data-table tbody');
+            console.log(promise);
+            tbody.innerHTML = '';
 
-                    tbody.innerHTML = '';
+            promise.forEach((item, index) => {
+                const tr = document.createElement('tr');
 
-                    promise.data.forEach((item, index) => {
-                        const tr = document.createElement('tr');
+                const nameTd = document.createElement('td');
+                nameTd.textContent = item.name;
+                tr.appendChild(nameTd);
 
-                        const nameTd = document.createElement('td');
-                        nameTd.textContent = item.name;
-                        tr.appendChild(nameTd);
+                const descriptionTd = document.createElement('td');
+                descriptionTd.textContent = item.description;
+                tr.appendChild(descriptionTd);
 
-                        const descriptionTd = document.createElement('td');
-                        descriptionTd.textContent = item.description;
-                        tr.appendChild(descriptionTd);
+                const categoryTd = document.createElement('td');
+                
+                // Assuming item.categories is an array of category objects
+                categoryTd.textContent = item.categories.map(category => category.name).join(', ');
+                tr.appendChild(categoryTd);
 
-                        const categoryTd = document.createElement('td');
-                        categoryTd.textContent = item.category;
-                        tr.appendChild(categoryTd);
+                const manufacturerTd = document.createElement('td');
+                manufacturerTd.textContent = item.manufacturer.name;
+                tr.appendChild(manufacturerTd);
 
-                        const manufacturerTd = document.createElement('td');
-                        manufacturerTd.textContent = item.manufacturer;
-                        tr.appendChild(manufacturerTd);
+                const availableTd = document.createElement('td');
+                availableTd.textContent = item.available;
+                tr.appendChild(availableTd);
 
-                        const availableTd = document.createElement('td');
-                        availableTd.textContent = item.available;
-                        tr.appendChild(availableTd);
+                const priceTd = document.createElement('td');
+                priceTd.textContent = item.price;
+                tr.appendChild(priceTd);
 
-                        const priceTd = document.createElement('td');
-                        priceTd.textContent = item.price;
-                        tr.appendChild(priceTd);
+                const editTd = document.createElement('td');
+                const editLink = document.createElement('a');
+                editLink.href = `item.html?id=${index + 1}`;
+                editLink.className = 'btn btn-info btn-circle';
 
-                        const editTd = document.createElement('td');
-                        const editLink = document.createElement('a');
-                        editLink.href = `item.html?id=${index + 1}`;
-                        editLink.className = 'btn btn-info btn-circle';
+                const editIcon = document.createElement('i');
+                editIcon.className = 'fas fa-edit';
 
-                        const editIcon = document.createElement('i');
-                        editIcon.className = 'fas fa-edit';
+                editLink.appendChild(editIcon);
 
-                        editLink.appendChild(editIcon);
+                editTd.appendChild(editLink);
 
-                        editTd.appendChild(editLink);
+                tr.appendChild(editTd);
 
-                        tr.appendChild(editTd);
-
-                        tbody.appendChild(tr);
-                    });
-                })
-                .catch(error => {
-                    console.error('Failed fetching items with: ', error);
-                });
-        };
-
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(error => {
+            console.error('Failed fetching items with: ', error);
+        });
+}
 
         window.addEventListener("load", fetchCatalog());
     </script>

@@ -10,7 +10,7 @@ const { sequelize, Item, Category, ItemCategory, ItemOrder, Manufacturer, Order,
 // Setup CORS
 const cors = require("cors")
 const corsOptions = {
-    origin: ['http://localhost:8000', 'http://127.0.0.1:8000']
+    origin: [`http://localhost:${8000}`, `http://127.0.0.1:${8000}`]
   };
 app.use(cors(corsOptions))
   
