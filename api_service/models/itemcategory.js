@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ItemCategory.init({
-    itemId: DataTypes.NUMBER,
-    categoryId: DataTypes.NUMBER
+    itemId: DataTypes.INTEGER,
+    categoryId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'ItemCategory',

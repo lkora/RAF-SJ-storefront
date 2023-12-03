@@ -15,51 +15,70 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.itemRouter = void 0;
 const express_1 = __importDefault(require("express"));
 exports.itemRouter = express_1.default.Router();
+const { sequelize, Item, Manufacturer } = require("../models");
 exports.itemRouter.use(express_1.default.json());
 exports.itemRouter.use(express_1.default.urlencoded({ extended: true }));
 // Read
 exports.itemRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json("Get all items");
+        const items = yield Item.findAll({
+            include: {
+                model: Manufacturer,
+                as: 'manufacturer'
+            }
+        });
+        return res.json(items);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
+// Get item by ID
 exports.itemRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json(`Get item with id ${req.params.id}`);
+        const item = yield Item.findOne({
+            where: { id: req.params.id },
+            include: { model: Manufacturer, as: 'manufacturer' }
+        });
+        return res.json(item);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Create
+// Create new item
 exports.itemRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json(`New item entry: ${req.body}`);
+        const newItem = yield Item.create(req.body);
+        return res.json(newItem);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Update
+// Update item
 exports.itemRouter.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json(`Data change of item with id=${req.params.id} => to: ${req.body}`);
+        yield Item.update(req.body, { where: { id: req.params.id } });
+        const updatedItem = yield Item.findOne({
+            where: { id: req.params.id },
+            include: { model: Manufacturer, as: 'manufacturer' }
+        });
+        return res.json(updatedItem);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Delete
+// Delete item
 exports.itemRouter.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json(req.params.id);
+        yield Item.destroy({ where: { id: req.params.id } });
+        return res.json({ message: `Item with id ${req.params.id} deleted.` });
     }
     catch (err) {
         console.log(err);

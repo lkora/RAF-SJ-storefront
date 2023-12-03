@@ -7,7 +7,6 @@ module.exports = {
       {
         name: '1K Ohm Resistor',
         description: 'A 1K Ohm resistor used in various electronic circuits.',
-        categoryId: 1,
         manufacturerId: 1,
         available: 100,
         price: 0.10,
@@ -17,7 +16,6 @@ module.exports = {
       {
         name: '1N4007 Diode',
         description: 'A popular 1A general-purpose diode.',
-        categoryId: 2,
         manufacturerId: 2,
         available: 50,
         price: 0.50,
@@ -27,7 +25,6 @@ module.exports = {
       {
         name: 'Weller WLC100 Soldering Iron',
         description: 'A high-performance soldering iron from Weller.',
-        categoryId: 3,
         manufacturerId: 3,
         available: 25,
         price: 44.00,
@@ -37,7 +34,6 @@ module.exports = {
       {
         name: 'Kester 44 Rosin Core Solder',
         description: 'A high activity, rosin activated flux for excellent performance.',
-        categoryId: 4,
         manufacturerId: 4,
         available: 30,
         price: 24.99,

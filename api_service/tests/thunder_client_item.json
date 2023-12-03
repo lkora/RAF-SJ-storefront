@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Test Item Collection",
-    "dateExported": "2023-12-02T23:39:15.124Z",
+    "dateExported": "2023-12-03T15:15:06.773Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -42,9 +42,14 @@
             "method": "POST",
             "sortNum": 60000,
             "created": "2023-12-02T23:31:35.602Z",
-            "modified": "2023-12-02T23:33:31.569Z",
+            "modified": "2023-12-03T15:04:39.028Z",
             "headers": [],
             "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"name\":\"New Item\",\"description\":\"This is a new item.\",\"manufacturerId\":1,\"available\":100,\"price\":\"0.10\"}",
+                "form": []
+            },
             "tests": []
         },
         {
@@ -52,13 +57,18 @@
             "colId": "59b5a1de-caa9-4a06-a9ce-129ee240899c",
             "containerId": "",
             "name": "putItem",
-            "url": "localhost:9000/item/1",
+            "url": "localhost:9000/item/3",
             "method": "PUT",
             "sortNum": 80000,
             "created": "2023-12-02T23:34:05.520Z",
-            "modified": "2023-12-02T23:34:13.702Z",
+            "modified": "2023-12-03T15:10:49.377Z",
             "headers": [],
             "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"name\":\"New Item\",\"description\":\"This is a new item.\",\"manufacturerId\":1,\"available\":100,\"price\":\"0.10\"}",
+                "form": []
+            },
             "tests": []
         },
         {
@@ -66,11 +76,11 @@
             "colId": "59b5a1de-caa9-4a06-a9ce-129ee240899c",
             "containerId": "",
             "name": "deleteItem",
-            "url": "localhost:9000/item/1",
+            "url": "localhost:9000/item/2",
             "method": "DELETE",
             "sortNum": 90000,
             "created": "2023-12-02T23:34:34.073Z",
-            "modified": "2023-12-02T23:35:33.675Z",
+            "modified": "2023-12-03T15:10:31.603Z",
             "headers": [],
             "params": [],
             "tests": []
