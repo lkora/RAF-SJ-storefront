@@ -15,11 +15,11 @@ module.exports = {
       },
       statusId: {
         allowNull: false,
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       price: {
         allowNull: false,
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       address: {
         allowNull: false,
