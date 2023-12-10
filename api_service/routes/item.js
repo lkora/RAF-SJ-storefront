@@ -54,17 +54,9 @@ exports.itemRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, f
 // Create new item
 exports.itemRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (!req.body.name || req.body.name.trim() === '') {
-            return res.status(400).json({ error: 'Name is required' });
-        }
         const newItem = yield Item.create(req.body);
         if (req.body.categories) {
-            for (let categoryId of req.body.categories) {
-                const category = yield Category.findByPk(categoryId);
-                if (category) {
-                    yield newItem.addCategory(category);
-                }
-            }
+            yield newItem.setCategories(req.body.categories);
         }
         return res.json(newItem);
     }
@@ -89,23 +81,7 @@ exports.itemRouter.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, f
         yield item.save();
         // Update categories
         if (req.body.categories) {
-            const currentCategories = yield item.getCategories();
-            const currentCategoryIds = currentCategories.map((category) => category.id);
-            const newCategoryIds = req.body.categories;
-            // Remove categories that are not in req.body
-            for (let categoryId of currentCategoryIds) {
-                if (!newCategoryIds.includes(categoryId)) {
-                    const category = yield Category.findByPk(categoryId);
-                    yield item.removeCategory(category);
-                }
-            }
-            // Add categories that are not currently associated with the item
-            for (let categoryId of newCategoryIds) {
-                if (!currentCategoryIds.includes(categoryId)) {
-                    const category = yield Category.findByPk(categoryId);
-                    yield item.addCategory(category);
-                }
-            }
+            yield item.setCategories(req.body.categories);
         }
         const updatedItem = yield Item.findOne({
             where: { id: req.params.id },

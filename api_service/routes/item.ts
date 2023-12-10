@@ -44,12 +44,7 @@ itemRouter.post('/', async (req, res) => {
     try {
         const newItem = await Item.create(req.body);
         if (req.body.categories) {
-            for (let categoryId of req.body.categories) {
-                const category = await Category.findByPk(categoryId);
-                if (category) {
-                    await newItem.addCategory(category);
-                }
-            }
+            await newItem.setCategories(req.body.categories);
         }
         return res.json(newItem);
     } catch(err) {
@@ -76,25 +71,7 @@ itemRouter.put('/:id', async (req, res) => {
 
         // Update categories
         if (req.body.categories) {
-            const currentCategories = await item.getCategories();
-            const currentCategoryIds = currentCategories.map((category: { id: any; }) => category.id);
-            const newCategoryIds = req.body.categories;
-
-            // Remove categories that are not in req.body
-            for (let categoryId of currentCategoryIds) {
-                if (!newCategoryIds.includes(categoryId)) {
-                    const category = await Category.findByPk(categoryId);
-                    await item.removeCategory(category);
-                }
-            }
-
-            // Add categories that are not currently associated with the item
-            for (let categoryId of newCategoryIds) {
-                if (!currentCategoryIds.includes(categoryId)) {
-                    const category = await Category.findByPk(categoryId);
-                    await item.addCategory(category);
-                }
-            }
+            await item.setCategories(req.body.categories);
         }
 
         const updatedItem = await Item.findOne({
@@ -122,35 +99,4 @@ itemRouter.delete('/:id', async (req, res) => {
         res.status(500).json({ error: "Error", data: err })
     }
 })
-
-
-// Update item
-// itemRouter.put('/:id', async (req, res) => {
-//     try {
-//         await Item.update(req.body, { where: { id: req.params.id } });
-//         const updatedItem = await Item.findOne({
-//             where: { id: req.params.id },
-//             include: [
-//                 { model: Manufacturer, as: 'manufacturer' },
-//                 { model: Category, through: ItemCategory, as: 'categories' }
-//             ]
-//         });
-//         if (req.body.categories) {
-//             const currentCategories = await updatedItem.getCategories();
-//             for (let category of currentCategories) {
-//                 await updatedItem.removeCategory(category);
-//             }
-//             for (let categoryId of req.body.categories) {
-//                 const category = await Category.findByPk(categoryId);
-//                 if (category) {
-//                     await updatedItem.addCategory(category);
-//                 }
-//             }
-//         }
-//         return res.json(updatedItem);
-//     } catch(err) {
-//         console.log(err)
-//         res.status(500).json({ error: "Error", data: err })
-//     }
-// })
 
