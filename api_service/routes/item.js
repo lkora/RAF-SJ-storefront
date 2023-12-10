@@ -108,33 +108,4 @@ exports.itemRouter.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Update item
-// itemRouter.put('/:id', async (req, res) => {
-//     try {
-//         await Item.update(req.body, { where: { id: req.params.id } });
-//         const updatedItem = await Item.findOne({
-//             where: { id: req.params.id },
-//             include: [
-//                 { model: Manufacturer, as: 'manufacturer' },
-//                 { model: Category, through: ItemCategory, as: 'categories' }
-//             ]
-//         });
-//         if (req.body.categories) {
-//             const currentCategories = await updatedItem.getCategories();
-//             for (let category of currentCategories) {
-//                 await updatedItem.removeCategory(category);
-//             }
-//             for (let categoryId of req.body.categories) {
-//                 const category = await Category.findByPk(categoryId);
-//                 if (category) {
-//                     await updatedItem.addCategory(category);
-//                 }
-//             }
-//         }
-//         return res.json(updatedItem);
-//     } catch(err) {
-//         console.log(err)
-//         res.status(500).json({ error: "Error", data: err })
-//     }
-// })
 //# sourceMappingURL=item.js.map
