@@ -1,4 +1,5 @@
 function handleFormSubmit(event) {
+    event.preventDefault();
     validateNameField(event);
     submitDataToTable(event);
 }
@@ -46,7 +47,7 @@ function deleteElement() {
         })
         .catch(error => {
             console.error('Failed deleting item with: ', error);
-            location.href = "http://localhost:8000/pages/catalog.html"
+            alert(error)
         });
 
 }
@@ -91,34 +92,39 @@ function loadElement() {
 }
 
 function submitDataToTable(event) {
-    const categorySelect = document.getElementById('item-category');
-    const selectedCategories = Array.from(categorySelect.selectedOptions).map(option => option.value);
-
-    const manufacturerSelect = document.getElementById('item-manufacturer');
-    const selectedManufacturer = manufacturerSelect.value;
-
-    const formData = new FormData(event.target);
-    formData.append('categories', JSON.stringify(selectedCategories));
-    formData.append('manufacturerId', selectedManufacturer);
-
-    const data = Object.fromEntries(formData);
     const itemId = document.getElementById('item-id').value;
+    const itemName = document.getElementById('item-name').value;
+    const itemDescription = document.getElementById('item-description').value;
+    const itemsAvailable = document.getElementById('items-available').value;
+    const itemPrice = document.getElementById('item-price').value;
+    const itemManufacturer = document.getElementById('item-manufacturer').value;
+    const itemCategory = Array.from(document.getElementById('item-category').selectedOptions).map(option => option.value);
 
-    // Send a PUT request to the API
+    const itemData = {
+        name: itemName,
+        description: itemDescription,
+        available: itemsAvailable,
+        price: itemPrice,
+        manufacturerId: itemManufacturer,
+        categories: itemCategory
+    };
+
     fetch(`http://localhost:9000/item/${itemId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(itemData),
     })
-        .then(response => response.json())
-        .then(updatedItem => {
-            console.log('Item updated:', updatedItem);
-        })
-        .catch(error => {
-            console.error('Failed updating item with: ', error);
-        });
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        location.href = "http://localhost:8000/pages/catalog.html"
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert(error);
+    });
 }
 
 function getCategories() {
