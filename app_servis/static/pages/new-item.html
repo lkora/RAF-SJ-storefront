@@ -113,14 +113,17 @@
                     <div class="row d-flex justify-content-center">
                         <div class="card-body col-lg-7 p-5 center">
                             <form method="post" id="new-item-form" action="/item">
+                                <input type="hidden" id="item-id" name="itemId">
                                 <div class="form-group row">
                                     <div class="col-sm-12">
+                                        <label for="item-name" class="form-label">Item Name</label>
                                         <input type="text" class="form-control" id="item-name" name="itemName" required
                                             placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12">
+                                        <label for="item-description" class="form-label">Item Description</label>
                                         <textarea class="form-control" id="item-description" name="itemDescription"
                                             placeholder="Description"></textarea>
                                     </div>
@@ -128,23 +131,29 @@
                                 <div class="form-group row">
 
                                 </div>
+
                                 <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <select class="form-select" name="itemManufacturer" id="item-manufacturer">
-
+                                    <div class="col-sm-6">
+                                        <label for="item-manufacturer" class="form-label">Manufacturer</label>
+                                        <select class="form-control" name="itemManufacturer" id="item-manufacturer">
                                         </select>
-                                        <select class="form-select" name="itemCategory" id="item-category" multiple>
-
-                                        </select>
-
                                     </div>
-                                </div>
+                                    <div class="col-sm-6">
+                                        <label for="item-category" class="form-label">Category</label>
+                                        <select class="form-control" name="itemCategory" id="item-category" multiple>
+                                        </select>
+                                    </div>
+
+                                </div>                                
+                                
                                 <div class="form-group row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
+                                        <label for="item-price" class="form-label">Item Price</label>
                                         <input type="number" step="0.01" min="0" class="form-control" id="item-price"
                                             name="itemPrice" placeholder="Price" required>
                                     </div>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
+                                        <label for="items-available" class="form-label">Items Available</label>
                                         <input type="number" step="1" min="0" class="form-control" id="items-available"
                                             name="itemsAvailable" placeholder="Number of available items" required>
                                     </div>

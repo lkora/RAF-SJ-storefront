@@ -63,9 +63,11 @@ function submitDataToTable(event) {
         .then(response => response.json())
         .then(updatedItem => {
             console.log('Item posted:', updatedItem);
+            location.href = "http://localhost:8000/pages/catalog.html"
         })
         .catch(error => {
             console.error('Failed creating item with: ', error);
+            alert(error);
         });
 }
 
