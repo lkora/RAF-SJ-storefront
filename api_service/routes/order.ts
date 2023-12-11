@@ -6,6 +6,19 @@ export const orderRouter = express.Router()
 orderRouter.use(express.json())
 orderRouter.use(express.urlencoded({extended:true}))
 
+// Fetch all order statuses
+orderRouter.get('/statuses', async (req, res) => {
+    console.log("Get statuses!")
+    try {
+        const orderStatuses = await OrderStatus.findAll();
+        return res.json(orderStatuses);
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({ error: "Error", data: err })
+    }
+});
+
+
 // Read all orders
 orderRouter.get('/', async (req, res) => {
     try {
@@ -94,7 +107,7 @@ orderRouter.post('/', async (req, res) => {
 orderRouter.put('/:id', async (req, res) => {
     try {
         const { status } = req.body;
-        await Order.update({ status }, { where: { id: req.params.id } });
+        await Order.update({ statusId: status }, { where: { id: req.params.id } });
         const updatedOrder = await Order.findByPk(req.params.id);
         return res.json(updatedOrder);
     } catch(err) {

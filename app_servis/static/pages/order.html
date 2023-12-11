@@ -113,56 +113,39 @@
                     <div class="row d-flex justify-content-center">
                         <div class="card-body col-lg-7 p-5 center">
                             <form method="post" id="order-details-form">
+                                <input type="hidden" id="order-id" name="orderId">
                                 <dl class="row">
                                     <dt class="col-sm-3">Date:</dt>
-                                    <dd class="col-sm-9">5.10.2023. 17:32</dd>
-                        
+                                    <dd class="col-sm-9" id="order-date"></dd>
+
                                     <dt class="col-sm-3">Status:</dt>
                                     <dd class="col-sm-9">
-                                        <select name="orderStatus" id="orderStatus" onchange="document.getElementById('order-details-form')">
-                                            <option value="New">New</option>
-                                            <option value="Accepted">Accepted</option>
-                                            <option value="Refused">Refused</option>
-                                            <option value="Processing">Processing</option>
-                                            <option value="Delivery">Delivery</option>
-                                            <option value="Finished">Finished</option>
-                                        </select>
+                                        <select class="form-control" name="orderStatus" id="order-status"></select>
                                     </dd>
-                        
+
                                     <dt class="col-sm-3">Amount:</dt>
-                                    <dd class="col-sm-9">$13.32</dd>
-                        
+                                    <dd class="col-sm-9" id="order-amount"></dd>
+
                                     <dt class="col-sm-3">Shipping Address:</dt>
-                                    <dd class="col-sm-9">Marthin Luther 12/2, New Jersey</dd>
-                        
+                                    <dd class="col-sm-9" id="order-address"></dd>
+
                                     <dt class="col-sm-3">Order Items:</dt>
-                                    <dd class="col-sm-9">
-                                        <ul>
-                                            <li>VEN ME45101V1-A99 x2</li>
-                                            <li>PREKI MS243 x3</li>
-                                        </ul>
-                                    </dd>
+                                    <dd class="col-sm-9" id="order-items"></dd>
                                 </dl>
-                        
+
+                                <div class="form-group row">
+                                    <div class="col-sm-10 mb-3 mb-sm-0">
+                                        <button type="submit" class="btn btn-primary btn-block" id="save-button">Save
+                                            Order Changes</button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a href="./orders.html" class="btn btn-info btn-block">Back</a>
+                                    </div>
+                                </div>
                             </form>
                         </div>
 
                     </div>
-
-                    <div class="d-flex justify-content-center">
-                        <div class="col-lg-7">
-                        <div class="col-sm-2">
-                            <a href="./orders.html" class="btn btn-info btn-block">
-                                Back
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <!-- Add Item Form End -->
-
-                </div>
-                <!-- /.container-fluid -->
 
             </main>
             <!-- End of Main Content -->
@@ -195,6 +178,7 @@
     <!-- Custom scripts for all pages-->
     <script src="../resources/js/sb-admin-2.min.js"></script>
 
+    <script src="../resources/js/order.js"></script>
 
 </body>
 

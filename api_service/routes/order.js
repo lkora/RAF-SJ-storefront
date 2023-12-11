@@ -18,6 +18,18 @@ const { sequelize, Order, ItemOrder, Item, OrderStatus } = require("../models");
 exports.orderRouter = express_1.default.Router();
 exports.orderRouter.use(express_1.default.json());
 exports.orderRouter.use(express_1.default.urlencoded({ extended: true }));
+// Fetch all order statuses
+exports.orderRouter.get('/statuses', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("Get statuses!");
+    try {
+        const orderStatuses = yield OrderStatus.findAll();
+        return res.json(orderStatuses);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Error", data: err });
+    }
+}));
 // Read all orders
 exports.orderRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -101,7 +113,7 @@ exports.orderRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, fu
 exports.orderRouter.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { status } = req.body;
-        yield Order.update({ status }, { where: { id: req.params.id } });
+        yield Order.update({ statusId: status }, { where: { id: req.params.id } });
         const updatedOrder = yield Order.findByPk(req.params.id);
         return res.json(updatedOrder);
     }
