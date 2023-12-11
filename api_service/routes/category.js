@@ -20,8 +20,8 @@ exports.categoryRouter.use(express_1.default.json());
 exports.categoryRouter.use(express_1.default.urlencoded({ extended: true }));
 exports.categoryRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const items = yield Category.findAll();
-        return res.json(items);
+        const categories = yield Category.findAll();
+        return res.json(categories);
     }
     catch (err) {
         console.log(err);
@@ -31,65 +31,49 @@ exports.categoryRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, 
 // Get item by ID
 exports.categoryRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const item = yield Category.findOne({
+        const category = yield Category.findOne({
             where: { id: req.params.id }
         });
-        return res.json(item);
+        return res.json(category);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Create new item
+// Create new category
 exports.categoryRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const newItem = yield Category.create(req.body);
-        return res.json(newItem);
+        const newCategory = yield Category.create(req.body);
+        return res.json(newCategory);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Update item
+// Update category
 exports.categoryRouter.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield Category.update(req.body, { where: { id: req.params.id } });
-        const updatedItem = yield Category.findOne({
+        const updatedCategory = yield Category.findOne({
             where: { id: req.params.id },
         });
-        if (req.body.categories) {
-            const currentCategories = yield updatedItem.getCategories();
-            for (let category of currentCategories) {
-                yield updatedItem.removeCategory(category);
-            }
-            for (let categoryId of req.body.categories) {
-                const category = yield Category.findByPk(categoryId);
-                if (category) {
-                    yield updatedItem.addCategory(category);
-                }
-            }
-        }
-        return res.json(updatedItem);
+        return res.json(updatedCategory);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Delete item
+// Delete category
 exports.categoryRouter.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const item = yield Category.findByPk(req.params.id);
-        if (item) {
-            const categories = yield item.getCategories();
-            for (let category of categories) {
-                yield item.removeCategory(category);
-            }
+        const category = yield Category.findByPk(req.params.id);
+        if (category) {
             yield Category.destroy({ where: { id: req.params.id } });
         }
-        return res.json({ message: `Item with id ${req.params.id} deleted.` });
+        return res.json({ message: `Category with id ${req.params.id} deleted.` });
     }
     catch (err) {
         console.log(err);

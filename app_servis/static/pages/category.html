@@ -106,39 +106,37 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">New category</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Edit category</h1>
                     </div>
 
                     <!-- Add Item Form Begin -->
                     <div class="row d-flex justify-content-center">
                         <div class="card-body col-lg-7 p-5 center">
-                            <form method="post" action="http://postman-echo.com/post" id="item-details-form">
+                            <form method="post" id="category-details-form">
+                                <input type="hidden" id="category-id" name="categoryId">
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="category-name" name="category name" required
-                                        placeholder="Name">
+                                        <input type="text" class="form-control" id="category-name" name="categoryName"
+                                            required placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <textarea class="form-control" id="category-description" name="categoryDescription"
-                                        placeholder="Description"></textarea>
+                                        <textarea class="form-control" id="category-description"
+                                            name="categoryDescription" placeholder="Description"></textarea>
                                     </div>
                                 </div>
-                                
                                 <div class="form-group row">
                                     <div class="col-sm-8 mb-3 mb-sm-0">
-                                        <button type="submit" class="btn btn-primary btn-block">Save category Changes</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Save Category
+                                            Changes</button>
                                     </div>
                                     <div class="col-sm-2">
-                                        <a href="#" class="btn btn-danger btn-block">
-                                            Delete
-                                        </a>
+                                        <button id="delete-category-button"
+                                            class="btn btn-danger btn-block">Delete</button>
                                     </div>
                                     <div class="col-sm-2">
-                                        <a href="./catalog.html" class="btn btn-info btn-block">
-                                            Back
-                                        </a>
+                                        <a href="./categories.html" class="btn btn-info btn-block">Back</a>
                                     </div>
                                 </div>
                             </form>
@@ -180,6 +178,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../resources/js/sb-admin-2.min.js"></script>
+
+    <script src="../resources/js/category.js"></script>
 
 </body>
 

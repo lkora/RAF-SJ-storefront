@@ -137,37 +137,6 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Cooling</td>
-                                            <td>Components used to reduce produced heat</td>
-                                            <td>
-                                                <a href="category.html?id=1" class="btn btn-info" onclick="">
-                                                    <i class="fas fa-info-circle"></i>
-                                                    Details
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Switch</td>
-                                            <td>/</td>
-                                            <td>
-                                                <a href="category.html?id=2" class="btn btn-info" onclick="">
-                                                    <i class="fas fa-info-circle"></i>
-                                                    Details
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Diode</td>
-                                            <td>Allows current to flow easily in one direction, but severely restricts
-                                                current from flowing in the opposite direction.</td>
-                                            <td>
-                                                <a href="category.html?id=3" class="btn btn-info" onclick="">
-                                                    <i class="fas fa-info-circle"></i>
-                                                    Details
-                                                </a>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -208,6 +177,51 @@
     <!-- Custom scripts for all pages-->
     <script src="../resources/js/sb-admin-2.min.js"></script>
 
+
+    <script>
+
+        function fetchCategories() {
+            fetch('http://localhost:9000/category')
+                .then(response => response.json())
+                .then(categories => {
+                    const tbody = document.querySelector('#dataTable tbody');
+                    console.log(categories);
+                    tbody.innerHTML = '';
+
+                    categories.forEach((category, index) => {
+                        const tr = document.createElement('tr');
+
+                        const nameTd = document.createElement('td');
+                        nameTd.textContent = category.name;
+                        tr.appendChild(nameTd);
+
+                        const descriptionTd = document.createElement('td');
+                        descriptionTd.textContent = category.description || 'No description';
+                        tr.appendChild(descriptionTd);
+                        
+                        const editTd = document.createElement('td');
+                        const editLink = document.createElement('a');
+                        editLink.href = `category.html?id=${category.id}`;
+                        editLink.className = 'btn btn-info btn-circle';
+
+                        const editIcon = document.createElement('i');
+                        editIcon.className = 'fas fa-edit';
+
+                        editLink.appendChild(editIcon);
+                        editTd.appendChild(editLink);
+                        tr.appendChild(editTd);
+
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(error => {
+                    console.error('Failed fetching categories with: ', error);
+                });
+        }
+
+        window.addEventListener("load", fetchCategories());
+
+    </script>
 </body>
 
 
