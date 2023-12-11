@@ -14,52 +14,107 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.orderRouter = void 0;
 const express_1 = __importDefault(require("express"));
+const { sequelize, Order, ItemOrder, Item, OrderStatus } = require("../models");
 exports.orderRouter = express_1.default.Router();
 exports.orderRouter.use(express_1.default.json());
 exports.orderRouter.use(express_1.default.urlencoded({ extended: true }));
-// Read
+// Read all orders
 exports.orderRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json("Get all orders");
+        const orders = yield Order.findAll({
+            include: [
+                {
+                    model: Item,
+                    as: 'items',
+                    through: { attributes: ['quantity'] }
+                },
+                {
+                    model: OrderStatus,
+                    as: 'status'
+                }
+            ]
+        });
+        return res.json(orders);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
+// Read order by ID
 exports.orderRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json(`Get order with id ${req.params.id}`);
+        const order = yield Order.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Item,
+                    as: 'items',
+                    through: { attributes: ['quantity'] }
+                },
+                {
+                    model: OrderStatus,
+                    as: 'status'
+                }
+            ]
+        });
+        return res.json(order);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Create
+// Create new order
 exports.orderRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json(`New order entry: ${req.body}`);
+        const { items, address } = req.body; // items is an array of { id, quantity }
+        const orderItems = yield Promise.all(items.map(({ id, quantity }) => __awaiter(void 0, void 0, void 0, function* () {
+            const item = yield Item.findByPk(id);
+            return {
+                item,
+                quantity,
+                price: item.price * quantity
+            };
+        })));
+        const totalPrice = orderItems.reduce((sum, { price }) => sum + price, 0);
+        const newOrder = yield Order.create({
+            status: 1,
+            address,
+            totalPrice,
+            orderedAt: new Date()
+        });
+        yield Promise.all(orderItems.map(({ item, quantity }) => {
+            return ItemOrder.create({
+                orderId: newOrder.id,
+                itemId: item.id,
+                quantity
+            });
+        }));
+        return res.json(newOrder);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Update
+// Update order
 exports.orderRouter.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json(`Data change of order with id=${req.params.id} => to: ${req.body}`);
+        const { status } = req.body;
+        yield Order.update({ status }, { where: { id: req.params.id } });
+        const updatedOrder = yield Order.findByPk(req.params.id);
+        return res.json(updatedOrder);
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
 }));
-// Delete
+// Delete order
 exports.orderRouter.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return res.json(req.params.id);
+        yield Order.destroy({ where: { id: req.params.id } });
+        return res.json({ message: `Order with id ${req.params.id} deleted.` });
     }
     catch (err) {
         console.log(err);
