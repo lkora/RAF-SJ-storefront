@@ -67,6 +67,8 @@ orderRouter.get('/:id', async (req, res) => {
 
 // Create new order
 orderRouter.post('/', async (req, res) => {
+    const transaction = await sequelize.transaction();
+
     try {
         const { items, address } = req.body; // items is an array of { id, quantity }
 
@@ -82,22 +84,25 @@ orderRouter.post('/', async (req, res) => {
         const totalPrice = orderItems.reduce((sum, { price }) => sum + price, 0);
 
         const newOrder = await Order.create({
-            status: 1,
+            statusId: 1,
             address,
-            totalPrice,
+            price: totalPrice,
             orderedAt: new Date()
-        });
+        }, { transaction });
 
         await Promise.all(orderItems.map(({ item, quantity }) => {
             return ItemOrder.create({
                 orderId: newOrder.id,
                 itemId: item.id,
                 quantity
-            });
+            }, { transaction });
         }));
+
+        await transaction.commit();
 
         return res.json(newOrder);
     } catch(err) {
+        if (transaction) await transaction.rollback();
         console.log(err)
         res.status(500).json({ error: "Error", data: err })
     }

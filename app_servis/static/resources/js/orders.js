@@ -22,7 +22,7 @@ function fetchOrders() {
                 tr.appendChild(statusTd)
 
                 const priceTd = document.createElement('td')
-                priceTd.textContent = `$${order.price.toFixed(2)}`
+                priceTd.textContent = `$${Math.round(order.price * 100) / 100}`
                 tr.appendChild(priceTd)
 
                 const addressTd = document.createElement('td')

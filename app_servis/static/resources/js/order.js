@@ -44,7 +44,7 @@ function loadOrder() {
         .then(order => {
             document.getElementById('order-id').value = order.id;
             document.getElementById('order-date').textContent = new Date(order.createdAt).toLocaleString();
-            document.getElementById('order-amount').textContent = `$${order.price.toFixed(2)}`;
+            document.getElementById('order-amount').textContent = `$${Math.round(order.price * 100) / 100}`;
             document.getElementById('order-address').textContent = order.address;
             document.getElementById('order-items').textContent = order.items.map(item => `${item.ItemOrder.quantity} x ${item.name}`).join('\n');
 

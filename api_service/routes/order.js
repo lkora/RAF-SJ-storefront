@@ -78,6 +78,7 @@ exports.orderRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, 
 }));
 // Create new order
 exports.orderRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const transaction = yield sequelize.transaction();
     try {
         const { items, address } = req.body; // items is an array of { id, quantity }
         const orderItems = yield Promise.all(items.map(({ id, quantity }) => __awaiter(void 0, void 0, void 0, function* () {
@@ -90,21 +91,24 @@ exports.orderRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, fu
         })));
         const totalPrice = orderItems.reduce((sum, { price }) => sum + price, 0);
         const newOrder = yield Order.create({
-            status: 1,
+            statusId: 1,
             address,
-            totalPrice,
+            price: totalPrice,
             orderedAt: new Date()
-        });
+        }, { transaction });
         yield Promise.all(orderItems.map(({ item, quantity }) => {
             return ItemOrder.create({
                 orderId: newOrder.id,
                 itemId: item.id,
                 quantity
-            });
+            }, { transaction });
         }));
+        yield transaction.commit();
         return res.json(newOrder);
     }
     catch (err) {
+        if (transaction)
+            yield transaction.rollback();
         console.log(err);
         res.status(500).json({ error: "Error", data: err });
     }
